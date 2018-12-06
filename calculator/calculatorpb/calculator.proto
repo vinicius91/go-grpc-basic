@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package calculator;
+option go_package="calculatorpb";
+
+message Numbers {
+    float first_number = 1;
+    float second_number = 2;
+}
+
+message OperationRequest {
+    Numbers numbers = 1;
+}
+
+message OperationResponse {
+    float result =1;
+}
+
+message PrimeNumberDecompositionRequest {
+    int32 number = 1;
+}
+
+message PrimeNumberDecompositionResponse {
+    int32 prime_factor = 1;
+}
+
+service CalculatorService {
+    // Unary
+    rpc Sum(OperationRequest) returns (OperationResponse) {};
+    // Unary
+    rpc Subtract(OperationRequest) returns (OperationResponse) {};
+    // Unary
+    rpc Multiply(OperationRequest) returns (OperationResponse) {};
+    // Stream
+    rpc PrimeNumberDecomposition(PrimeNumberDecompositionRequest) returns (stream PrimeNumberDecompositionResponse) {};
+}
